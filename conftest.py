@@ -3,6 +3,7 @@ from fixture.application import Application
 import pytest
 import json
 import os.path
+from fixture.db import DbFixture
 
 
 fixture = None
@@ -24,7 +25,17 @@ def app(request):
     web_config = load_config(request.config.getoption("--target"))['web']
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config["baseUrl"])
+    fixture.session.ensure_login(username="administrator", password="root")
     return fixture
+
+@pytest.fixture(scope = "session")
+def db(request):
+    #db_config = load_config(request.config.getoption("--target"))['db']
+    dbfixture = DbFixture(host="localhost", name="bugtracker",user="root", password="" )
+    def fin():
+        dbfixture.destroy()
+    request.addfinalizer(fin)
+    return dbfixture
 
 @pytest.fixture(scope = "session", autouse=True)
 def stop(request):
