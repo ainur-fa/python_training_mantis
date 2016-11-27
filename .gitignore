@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+.idea/misc.xml
+.idea/modules.xml
+*.xml
+.idea/python_training_mantis.iml
