@@ -26,6 +26,14 @@ class ProjectHelper:
         wd.find_element_by_xpath("//span[@class='submit-button']/input").click()
         wd.find_element_by_link_text("Proceed").click()
 
+    def delete(self, project):
+        wd = self.app.wd
+        self.open_projects_page()
+        wd.find_element_by_link_text(project.name).click()
+        wd.find_element_by_xpath("//form[@id='project-delete-form']/fieldset/input[3]").click()
+        wd.find_element_by_xpath("//div[@id='content']/div/form/input[4]").click()
+
+
     def fill_project_form(self, field, text):
         wd = self.app.wd
         wd.find_element_by_id(field).click()
