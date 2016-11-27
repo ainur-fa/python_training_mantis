@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 from model.project import Project
+import random
+import string
 
 class ProjectHelper:
 
     def __init__(self, app):
         self.app = app
+
+    def random_string(self, prefix, maxlen):
+        symbols = string.ascii_letters + string.digits
+        return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
     def open_projects_page(self):
         wd = self.app.wd
