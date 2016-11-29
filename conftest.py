@@ -20,7 +20,7 @@ def load_config(file):
 
 @pytest.fixture(scope = "session")
 def config(request):
-    return load_config(request.config.getoption("--target")
+    return load_config(request.config.getoption("--target"))
 
 @pytest.fixture
 def app(request, config):
@@ -40,18 +40,18 @@ def configure_server(request, config):
 
 def install_server_configuration(host, username, password):
     with ftputil.FTPHost(host, username, password) as remote:
-        if remote.path.isfile('config_inc.php.bak'):
-            remote.remove('config_inc.php.bak')
-        if remote.path.isfile('config_inc.php'):
-            remote.rename('config_inc.php','config_inc.php.bak')
-        remote.upload(os.path.join(os.path.dirname(__file__),'resources/config_inc.php'),'config_inc.php')
+        if remote.path.isfile('/config/config_inc.php.bak'):
+            remote.remove('/config/config_inc.php.bak')
+        if remote.path.isfile('/config/config_inc.php'):
+            remote.rename('/config/config_inc.php','/config/config_inc.php.bak')
+        remote.upload(os.path.join(os.path.dirname(__file__),'resources/config_inc.php'),'/config/config_inc.php')
 
 def restore_server_configuration(host, username, password):
     with ftputil.FTPHost(host, username, password) as remote:
-        if remote.path.isfile('config_inc.php.bak'):
-            if remote.path.isfile('config_inc.php'):
-                remote.remove('config_inc.php')
-            remote.rename('config_inc.php.bak','config_inc.php')
+        if remote.path.isfile('/config/config_inc.php.bak'):
+            if remote.path.isfile('/config/config_inc.php'):
+                remote.remove('/config/config_inc.php')
+            remote.rename('/config/config_inc.php.bak','/config/config_inc.php')
 
 
 @pytest.fixture(scope = "session")

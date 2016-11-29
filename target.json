@@ -6,7 +6,9 @@
     "username": "administrator",
     "password": "root"
   },
-  "ftp":"localhost",
-    "username":"mantis",
-    "password":"mantis"
+  "ftp": {
+    "host": "localhost",
+    "username": "mantis",
+    "password": "mantis"
+  }
 }
